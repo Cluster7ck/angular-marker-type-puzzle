@@ -3,6 +3,8 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogService } from './dialog.service';
 import { MyDialogComponent } from './my-dialog/my-dialog.component';
 
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,7 +18,7 @@ export class AppComponent {
   ) {}
 
   public onOpenDialog() {
-    this.dialogService.open(MyDialogComponent, { autoFocus: true, data: { value: "traveller" }})
+    this.dialogService.open(MyDialogComponent, { autoFocus:true, data: { value: "traveller" }})
       // This is the crux of the problem. How do we get nice type inferrence for the input data
       // and output result? Currently both are typed unknown
       .subscribe((result) => {
