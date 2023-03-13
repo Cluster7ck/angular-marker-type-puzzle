@@ -2,14 +2,14 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ComponentType } from '@angular/cdk/portal';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { z, ZodType } from 'zod';
+import { z, ZodTypeAny } from 'zod';
 
 export type DialogComponent<TData, TResult> = {
     __brandData: TData,
     __brandResult: TResult,
 }
 
-export type DialogComponentSchema<TData extends ZodType<any, any, any>, TResult extends ZodType<any, any, any>> = {
+export type DialogComponentSchema<TData extends ZodTypeAny, TResult extends ZodTypeAny> = {
     __brandDataSchema: TData,
     __brandResultSchema: TResult,
 }
@@ -17,8 +17,8 @@ export type DialogComponentSchema<TData extends ZodType<any, any, any>, TResult 
 export type DialogResult<Type> = Type extends DialogComponent<infer _, infer R> ? R : never;
 export type DialogData<Type> = Type extends DialogComponent<infer T, infer _> ? T : never;
 
-export type DialogResultInferred<Type> = z.infer<Type extends DialogComponentSchema<infer _, infer R extends ZodType<any, any, any>> ? R : never>;
-export type DialogDataInferred<Type> = z.infer<Type extends DialogComponentSchema<infer D extends ZodType<any, any, any>, infer _> ? D : never>;
+export type DialogResultInferred<Type> = z.infer<Type extends DialogComponentSchema<infer _, infer R extends ZodTypeAny> ? R : never>;
+export type DialogDataInferred<Type> = z.infer<Type extends DialogComponentSchema<infer D extends ZodTypeAny, infer _> ? D : never>;
 
 
 @Injectable({
@@ -41,7 +41,7 @@ export class DialogService {
     public openWithSchema<T>(
         component: ComponentType<T>,
         config?: MatDialogConfig<DialogDataInferred<T>>
-    ): Observable<DialogResultInferred<T> | undefined> {
+    ): Observable<DialogResultInferred<T>> {
         const matDialogRef = this.matDialog.open<T, DialogDataInferred<T>, DialogResultInferred<T>>(component, {
             ...config,
             autoFocus: true

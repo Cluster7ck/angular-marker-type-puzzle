@@ -10,7 +10,7 @@ import { z } from "zod"
 })
 export class MyDialogComponent {
   __brandDataSchema = z.object({ value: z.string() });
-  __brandResultSchema = z.boolean();
+  __brandResultSchema = z.boolean().optional();
   __brandData: { value: string} = { value: ""};
   __brandResult: boolean = false;
 
