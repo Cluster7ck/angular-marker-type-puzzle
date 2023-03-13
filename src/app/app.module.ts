@@ -7,11 +7,13 @@ import { MyDialogComponent } from './my-dialog/my-dialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
+import { DialogTwoComponent } from './dialog-two/dialog-two.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MyDialogComponent
+    MyDialogComponent,
+    DialogTwoComponent
   ],
   imports: [
     BrowserModule,

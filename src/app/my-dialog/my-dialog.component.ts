@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DialogData, DialogResult } from '../dialog.service';
+import { DialogComponent, DialogData, DialogDataInferred, DialogResult } from '../dialog.service';
+import { z } from "zod"
 
 @Component({
   selector: 'app-my-dialog',
@@ -8,12 +9,14 @@ import { DialogData, DialogResult } from '../dialog.service';
   styleUrls: ['./my-dialog.component.css']
 })
 export class MyDialogComponent {
+  __brandDataSchema = z.object({ value: z.string() });
+  __brandResultSchema = z.boolean();
   __brandData: { value: string} = { value: ""};
   __brandResult: boolean = false;
 
   constructor(
     private dialogRef: MatDialogRef<MyDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData<MyDialogComponent>
+    @Inject(MAT_DIALOG_DATA) public data: DialogDataInferred<MyDialogComponent>
     ) {}
 
   public onClick(value: DialogResult<MyDialogComponent>) {
